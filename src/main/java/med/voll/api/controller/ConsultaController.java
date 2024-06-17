@@ -1,16 +1,10 @@
 package med.voll.api.controller;
 
-
-
-
-
-
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.api.domain.consulta.AgendaDeConsultaService;
 import med.voll.api.domain.consulta.DatosAgendarConsulta;
-import med.voll.api.domain.consulta.DatosDetalleConsulta;
-import med.voll.api.domain.medico.MedicoRepository;
-import med.voll.api.domain.paciente.PacienteRepository;
+import med.voll.api.infra.errores.ValidacionDeIntegridad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,11 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class ConsultaController {
 
     @Autowired
-    private AgendaDeConsultaService servicio;
+    private AgendaDeConsultaService service;
 
     @PostMapping
-    public  ResponseEntity agendar(@RequestBody @Valid DatosAgendarConsulta datos){
-        servicio.agendar(datos);
-        return ResponseEntity.ok(new DatosDetalleConsulta(null, null, null, null));
+    @Transactional
+    public  ResponseEntity agendar(@RequestBody @Valid DatosAgendarConsulta datos) throws ValidacionDeIntegridad {
+
+        var response = service.agendar(datos);
+        return ResponseEntity.ok(response);
+
     }
 }

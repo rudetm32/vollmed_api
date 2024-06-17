@@ -12,7 +12,7 @@ import med.voll.api.domain.paciente.Paciente;
 import java.time.LocalDateTime;
 
 @Table(name="consultas")
-@Entity(name ="consulta")
+@Entity(name ="Consulta")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

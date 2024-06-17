@@ -23,6 +23,7 @@ public class PacienteController {
     private PacienteRepository pacienteRepository;
 
     @PostMapping
+    @Transactional
     public ResponseEntity<DatosRespuestaPaciente> registrarPaciente(@RequestBody @Valid DatosRegistroPaciente datosRegistroPaciente, UriComponentsBuilder uriComponentsBuilder) {
         Paciente paciente = pacienteRepository.save(new Paciente(datosRegistroPaciente));
         System.out.println("Datos del paciente guardados: " + convertirADatosRespuesta(paciente));
