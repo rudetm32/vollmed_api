@@ -28,7 +28,7 @@ public class SecurityConfigurations {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
-     //                   .requestMatchers(HttpMethod.POST, "/pacientes").permitAll()
+                        .requestMatchers("/swagger-ui.htm","/v3/api-docs/**","/swagger-ui/**").permitAll()
                         .anyRequest()
                         .authenticated()
                 )
